@@ -1,26 +1,30 @@
 import * as React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { GRAY_DARK } from '_styles/colors';
+import { PRIMARY, GRAY_DARK } from '_styles/colors';
 
-import SearchScreen from '../scenes/search';
-import HelpScreen from '../scenes/help';
+import WithdrawScreen from '../scenes/withdraw';
+import ExcessiveScreen from '../scenes/excessive';
 import ContactScreen from '../scenes/contact';
 
-const Drawer = createDrawerNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const AppNavigator = () => (
-    <Drawer.Navigator>
-        <Drawer.Screen name="식품검색" component={SearchScreen} options={{
-            drawerIcon: () => <MaterialCommunityIcons name="folder-search-outline" color={GRAY_DARK} size={26}/>
+    <Tab.Navigator
+        activeColor={PRIMARY}
+        inactiveColor={GRAY_DARK}
+        barStyle={{ backgroundColor: '#fff' }}
+    >
+        <Tab.Screen name="회수·판매중지" component={WithdrawScreen} options={{
+            tabBarIcon: ({color}) => <MaterialCommunityIcons name="alarm-light-outline" color={color} size={26}/>
         }}/>
-        <Drawer.Screen name="도움말" component={HelpScreen} options={{
-            drawerIcon: () => <MaterialCommunityIcons name="help" color={GRAY_DARK} size={26}/>
+        <Tab.Screen name="허위·과대광고" component={ExcessiveScreen} options={{
+            tabBarIcon: ({color}) => <MaterialCommunityIcons name="access-point-network-off" color={color} size={26}/>
         }}/>
-        <Drawer.Screen name="문의하기" component={ContactScreen} options={{
-            drawerIcon: () => <MaterialCommunityIcons name="chat-outline" color={GRAY_DARK} size={26}/>
+        <Tab.Screen name="문의사항" component={ContactScreen} options={{
+            tabBarIcon: ({color}) => <MaterialCommunityIcons name="dots-horizontal" color={color} size={26}/>
         }}/>
-    </Drawer.Navigator>
+    </Tab.Navigator>
 )
 
 export default AppNavigator;

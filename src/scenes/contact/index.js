@@ -3,13 +3,11 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SCALE_8 } from '_styles/spacing';
 import { scaleSize } from '_styles/mixins';
-import { Menu } from '_components/Menu';
 
 const ContactScreen = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
-            <Menu navigation={navigation} title="문의하기"/>
-            <WebView source={{ uri: 'https://blog.naver.com/dilrong/222189130155' }}/>
+            <WebView source={{ uri: 'https://blog.naver.com/dilrong' }}/>
         </SafeAreaView>
     )
 }
