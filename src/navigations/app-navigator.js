@@ -5,7 +5,7 @@ import { PRIMARY, GRAY_DARK } from '_styles/colors';
 
 import WithdrawScreen from '../scenes/withdraw';
 import ExcessiveScreen from '../scenes/excessive';
-import ContactScreen from '../scenes/contact';
+import MoreScreen from '../scenes/more';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -21,7 +21,7 @@ const AppNavigator = () => (
         <Tab.Screen name="허위·과대광고" component={ExcessiveScreen} options={{
             tabBarIcon: ({color}) => <MaterialCommunityIcons name="access-point-network-off" color={color} size={26}/>
         }}/>
-        <Tab.Screen name="문의사항" component={ContactScreen} options={{
+        <Tab.Screen name="설정" component={MoreScreen} options={{
             tabBarIcon: ({color}) => <MaterialCommunityIcons name="dots-horizontal" color={color} size={26}/>
         }}/>
     </Tab.Navigator>

@@ -48,10 +48,6 @@ const WithdrawScreen = ({navigation}) => {
         setLoading(false)
     }
 
-    useEffect(() => {
-        getData();
-    }, [onChangeSearch])
-
     return (
         <SafeAreaView style={styles.container}>
             <Searchbar
