@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, StatusBar, Platform, FlatList, ScrollView, View, Image, Share } from 'react-native';
+import { StyleSheet, SafeAreaView, StatusBar, Platform, FlatList, ScrollView, View, Image, Share, Linking } from 'react-native';
 import { List, Divider, Title, Subheading, Button } from 'react-native-paper';
 import { SCALE_16, SCALE_8 } from '_styles/spacing';
 import { scaleSize } from '_styles/mixins';
@@ -62,7 +62,9 @@ const ListScreen = ({navigation}) => {
                     message: 'https://play.google.com/store/apps/details?id=com.dilrong.restaurantmap'
                 })
             }}>식품대장 공유하기</Button>
-            <Button icon="star" mode="outlined" style={styles.shareButton} color="#000">식품대장 칭찬하기</Button>
+            <Button icon="star" mode="outlined" style={styles.shareButton} color="#000" onPress={() => {
+                Linking.openURL('https://play.google.com/store/apps/details?id=com.dilrong.restaurantmap')
+            }}>식품대장 칭찬하기</Button>
         </SafeAreaView>
     )
 }

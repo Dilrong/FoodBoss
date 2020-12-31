@@ -6,7 +6,7 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#f39c12',
+    primary: '#fff',
     accent: '#f1c40f',
   },
 };
