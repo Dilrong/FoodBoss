@@ -59,11 +59,11 @@ const ListScreen = ({navigation}) => {
             <Button icon="share-variant" mode="outlined" style={styles.shareButton} color="#000" onPress={() => { 
                 Share.share({
                     title: '식품대장 - 불량 식품은 이제 그만!',
-                    message: 'https://play.google.com/store/apps/details?id=com.dilrong.restaurantmap'
+                    message: 'https://play.google.com/store/apps/details?id=com.dilrong.foodboss'
                 })
             }}>식품대장 공유하기</Button>
             <Button icon="star" mode="outlined" style={styles.shareButton} color="#000" onPress={() => {
-                Linking.openURL('https://play.google.com/store/apps/details?id=com.dilrong.restaurantmap')
+                Linking.openURL('https://play.google.com/store/apps/details?id=com.dilrong.foodboss')
             }}>식품대장 칭찬하기</Button>
         </SafeAreaView>
     )

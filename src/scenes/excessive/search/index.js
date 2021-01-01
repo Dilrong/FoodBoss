@@ -21,6 +21,7 @@ const SearchScreen = ({navigation}) => {
                     placeholder="제품 이름을 입력해주세요."
                     onChangeText={onChangeSearch}
                     value={searchQuery}
+                    onSubmitEditing={ ()=>{ navigation.navigate('result', { query: searchQuery}) }}
                 />
             </View>
         </SafeAreaView>

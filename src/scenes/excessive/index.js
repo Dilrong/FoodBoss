@@ -11,7 +11,9 @@ const ExcessiveStackScreen = ({navigation}) => (
     <ExcessiveStack.Navigator>
         <ExcessiveStack.Screen name="list" component={ListScreen} options={{headerShown:false}}/>
         <ExcessiveStack.Screen name="search" component={SearchScreen} options={{headerShown:false}}/>
-        <ExcessiveStack.Screen name="result" component={ResultScreen} options={{headerShown:false}}/>
+        <ExcessiveStack.Screen name="result" component={ResultScreen} options={{
+            headerTitle: '검색결과'
+        }}/>
     </ExcessiveStack.Navigator>
 )
 
