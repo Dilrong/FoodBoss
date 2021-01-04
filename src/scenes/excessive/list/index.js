@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, FlatList, ScrollView, ActivityIndicator } from 'react-native';
+import { StyleSheet, SafeAreaView, FlatList, ScrollView, ActivityIndicator, StatusBar, Platform } from 'react-native';
 import { SCALE_16, SCALE_8 } from '_styles/spacing';
 import { List, Divider, Modal, Title, Paragraph, Appbar } from 'react-native-paper';
 import { ServiceKey } from '_utils/env'
@@ -97,7 +97,8 @@ const ExcessiveScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
     },
     searchBar: {
         marginLeft: SCALE_8,

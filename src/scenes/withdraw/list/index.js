@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, FlatList, ScrollView, ActivityIndicator } from 'react-native';
+import { StyleSheet, SafeAreaView, FlatList, ScrollView, ActivityIndicator, StatusBar, Platform } from 'react-native';
 import { SCALE_16, SCALE_8 } from '_styles/spacing';
 import { List, Divider, Caption, Appbar } from 'react-native-paper';
 import { FoodServiceKey } from '_utils/env'
@@ -73,7 +73,8 @@ const ListScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
     },
     searchBar: {
         marginLeft: SCALE_8,
