@@ -11,17 +11,17 @@ const ListScreen = ({navigation}) => {
         title: '도움말',
         screen: 'help'
     }, {
-        id: 2,
+        id: 3,
         icon: 'face-agent',
         title: '문의하기',
         screen: 'contact'
     }, {
-        id: 3,
+        id: 4,
         icon: 'file-document-outline',
         title: '서비스 이용 약관',
         screen: 'terms'
     }, {
-        id: 4,
+        id: 5,
         icon: 'file-document-outline',
         title: '개인정보 처리 방침',
         screen: 'policy'

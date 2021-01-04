@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, FlatList, ScrollView, View, Image } from 'react-native';
+import { StyleSheet, SafeAreaView, FlatList, ScrollView, ActivityIndicator } from 'react-native';
 import { SCALE_16, SCALE_8, SCALE_4 } from '_styles/spacing';
-import { List, Divider, Modal, Title, Caption, Paragraph, ActivityIndicator } from 'react-native-paper';
+import { List, Divider, Modal, Title, Paragraph } from 'react-native-paper';
 import { GRAY_LIGHT } from '_styles/colors';
 import { scaleSize } from '_styles/mixins';
-import { ServiceKey } from '_utils/env';
+import { FoodServiceKey } from '_utils/env';
 import axios from 'axios';
-const parser = require('fast-xml-parser');
 
 const ResultScreen = ({route, navigation}) => {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [count, setCount] = useState(0);
     const [rows, setRows] = useState([]);
     const [page, setPage]= useState(1);
-    const [excessiveCount, setExcessiveCount] = useState(0);
     const [reason, setReason]= useState('');
-    const [result, setResult]= useState('');
 
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
@@ -24,11 +22,10 @@ const ResultScreen = ({route, navigation}) => {
     const ExcessiveListItem = ({ item }) => (
         <ScrollView>
             <List.Item
-                title={item.PRDUCT}
-                description={item.ENTRPS}
+                title={item.PRDTNM}
+                description={item.BSSHNM}
                 onPress={() => {
-                    setReason(item.FOUND_CN)
-                    setResult(item.DSPS_CMMND)
+                    setReason(item.RTRVLPRVNS)
                     showModal()
                 }}
             />
@@ -38,53 +35,44 @@ const ResultScreen = ({route, navigation}) => {
     
     const renderExcessiveItem = ({ item }) => <ExcessiveListItem item={item} />;
 
-    const getExcessiveData = async() => {
-        await axios.get(`http://apis.data.go.kr/1470000/FoodFlshdErtsInfoService/getFoodFlshdErtsItem?serviceKey=${ServiceKey}&Prduct=${encodeURI(route.params.query)}&pageNo=1&numOfRows=20`)
+    const getData = async() => {
+        setLoading(true)
+        await axios.get(`http://openapi.foodsafetykorea.go.kr/api/${FoodServiceKey}/I0490/json/${page}/${page*15}`)
         .then((response) => {
-            const result = parser.parse(response.data);
-            setRows(result.response.body.items.item);
-            setExcessiveCount(result.response.body.totalCount);
+            setRows(response.data.I0490.row);
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err);
         })
-        setLoading(false)
+        if(response){
+            setLoading(false);
+        }
     }
 
-    const addExcessiveData = async() => {
-        await axios.get(`http://apis.data.go.kr/1470000/FoodFlshdErtsInfoService/getFoodFlshdErtsItem?serviceKey=${ServiceKey}&Prduct=&pageNo=${page}&numOfRows=20`)
+    const addData = async() => {
+        await axios.get(`http://openapi.foodsafetykorea.go.kr/api/${FoodServiceKey}/I0490/json/${page}/${page*15}`)
         .then((response) => {
-            const result = parser.parse(response.data);
-            setRows(rows.concat(result.response.body.items.item))
+            setRows(rows.concat(response.data.I0490.row))
         })
         .catch((err) => {
             console.log(err)
         })
-        setLoading(false)
+        if(response){
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
-        getExcessiveData();
+        getData();
     }, [])
 
     useEffect(() => {
-        addExcessiveData();
+        addData();
     }, [page])
 
     return (
         <SafeAreaView style={styles.container}>
-            <Paragraph style={styles.title}>회수·판매중지</Paragraph>
-            {loading===true || rows===undefined || rows===null?
-            <ActivityIndicator style={{ paddingTop: SCALE_16 }}/>:
-            <FlatList data={rows} renderItem={renderExcessiveItem} keyExtractor={item => item.id}/>
-            }
-            <Paragraph style={styles.title}>허위·과대광고({excessiveCount})</Paragraph>
-            {excessiveCount===0?
-            <View style={styles.noSearchContainer}>
-                <Image style={styles.profile_img} source={require('_assets/icon.png')}/>
-                <Caption style={styles.noSearch}>허위·과대광고 식품 정보가 없습니다.</Caption>
-            </View>
-            :<View/>}
+            <Paragraph style={styles.title}>회수·판매중지({count})</Paragraph>
             {loading===true || rows===undefined || rows===null?
             <ActivityIndicator style={{ paddingTop: SCALE_16 }}/>:
             <FlatList data={rows} renderItem={renderExcessiveItem} keyExtractor={item => item.id} onEndReachedThreshold={0.2} onEndReached={() => {setPage(page + 1)}}/>
@@ -92,9 +80,6 @@ const ResultScreen = ({route, navigation}) => {
             <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
                 <Title>사유</Title>
                 {reason.length===0?<Paragraph>알수없음</Paragraph>:<Paragraph>{reason}</Paragraph>}
-                <Title/>
-                <Title>결과</Title>
-                {result.length===0?<Paragraph>알수없음</Paragraph>:<Paragraph>{result}</Paragraph>}
             </Modal>
         </SafeAreaView>
     )

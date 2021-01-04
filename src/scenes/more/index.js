@@ -6,6 +6,7 @@ import HelpScreen from './help';
 import ContactScreen from './contact';
 import TermsScreen from './terms';
 import PolicyScreen from './policy';
+import SaveScreen from './save';
 
 const MoreStack = createStackNavigator();
 
@@ -14,6 +15,9 @@ const MoreStackScreen = ({navigation}) => (
         <MoreStack.Screen name="list" component={ListScreen} options={{headerShown:false}}/>
         <MoreStack.Screen name="help" component={HelpScreen} options={{
             headerTitle: '도움말'
+        }}/>
+        <MoreStack.Screen name="save" component={SaveScreen} options={{
+            headerTitle: '저장한 식품'
         }}/>
         <MoreStack.Screen name="contact" component={ContactScreen} options={{
             headerTitle: '문의하기'

@@ -12,8 +12,7 @@ const ResultScreen = ({route, navigation}) => {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(true);
     const [rows, setRows] = useState([]);
-    const [page, setPage]= useState(1);
-    const [excessiveCount, setExcessiveCount] = useState(0);
+    const [count, setCount] = useState(15);
     const [reason, setReason]= useState('');
     const [result, setResult]= useState('');
 
@@ -39,23 +38,11 @@ const ResultScreen = ({route, navigation}) => {
     const renderExcessiveItem = ({ item }) => <ExcessiveListItem item={item} />;
 
     const getExcessiveData = async() => {
-        await axios.get(`http://apis.data.go.kr/1470000/FoodFlshdErtsInfoService/getFoodFlshdErtsItem?serviceKey=${ServiceKey}&Prduct=${encodeURI(route.params.query)}&pageNo=1&numOfRows=20`)
+        await axios.get(`http://apis.data.go.kr/1470000/FoodFlshdErtsInfoService/getFoodFlshdErtsItem?serviceKey=${ServiceKey}&Prduct=${encodeURI(route.params.query)}&pageNo=1&numOfRows=${count}`)
         .then((response) => {
             const result = parser.parse(response.data);
             setRows(result.response.body.items.item);
-            setExcessiveCount(result.response.body.totalCount);
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-        setLoading(false)
-    }
-
-    const addExcessiveData = async() => {
-        await axios.get(`http://apis.data.go.kr/1470000/FoodFlshdErtsInfoService/getFoodFlshdErtsItem?serviceKey=${ServiceKey}&Prduct=&pageNo=${page}&numOfRows=20`)
-        .then((response) => {
-            const result = parser.parse(response.data);
-            setRows(rows.concat(result.response.body.items.item))
+            setCount(result.response.body.totalCount);
         })
         .catch((err) => {
             console.log(err)
@@ -65,21 +52,12 @@ const ResultScreen = ({route, navigation}) => {
 
     useEffect(() => {
         getExcessiveData();
-    }, [])
-
-    useEffect(() => {
-        addExcessiveData();
-    }, [page])
+    }, [count])
 
     return (
         <SafeAreaView style={styles.container}>
-            <Paragraph style={styles.title}>회수·판매중지</Paragraph>
-            {loading===true || rows===undefined || rows===null?
-            <ActivityIndicator style={{ paddingTop: SCALE_16 }}/>:
-            <FlatList data={rows} renderItem={renderExcessiveItem} keyExtractor={item => item.id}/>
-            }
-            <Paragraph style={styles.title}>허위·과대광고({excessiveCount})</Paragraph>
-            {excessiveCount===0?
+            <Paragraph style={styles.title}>허위·과대광고({count})</Paragraph>
+            {count===0?
             <View style={styles.noSearchContainer}>
                 <Image style={styles.profile_img} source={require('_assets/icon.png')}/>
                 <Caption style={styles.noSearch}>허위·과대광고 식품 정보가 없습니다.</Caption>
@@ -87,7 +65,7 @@ const ResultScreen = ({route, navigation}) => {
             :<View/>}
             {loading===true || rows===undefined || rows===null?
             <ActivityIndicator style={{ paddingTop: SCALE_16 }}/>:
-            <FlatList data={rows} renderItem={renderExcessiveItem} keyExtractor={item => item.id} onEndReachedThreshold={0.2} onEndReached={() => {setPage(page + 1)}}/>
+            <FlatList data={rows} renderItem={renderExcessiveItem} keyExtractor={item => item.id}/>
             }
             <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
                 <Title>사유</Title>
