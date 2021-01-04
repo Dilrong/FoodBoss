@@ -7,6 +7,7 @@ import ContactScreen from './contact';
 import TermsScreen from './terms';
 import PolicyScreen from './policy';
 import SaveScreen from './save';
+import ReportScreen from './report';
 
 const MoreStack = createStackNavigator();
 
@@ -21,6 +22,9 @@ const MoreStackScreen = ({navigation}) => (
         }}/>
         <MoreStack.Screen name="contact" component={ContactScreen} options={{
             headerTitle: '문의하기'
+        }}/>
+        <MoreStack.Screen name="report" component={ReportScreen} options={{
+            headerTitle: '불량식품 알리기'
         }}/>
         <MoreStack.Screen name="terms" component={TermsScreen} options={{
             headerTitle: '서비스 이용 약관'

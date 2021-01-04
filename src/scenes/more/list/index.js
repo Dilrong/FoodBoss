@@ -11,10 +11,15 @@ const ListScreen = ({navigation}) => {
         title: '도움말',
         screen: 'help'
     }, {
-        id: 3,
+        id: 2,
         icon: 'face-agent',
         title: '문의하기',
         screen: 'contact'
+    }, {
+        id: 3,
+        icon: 'food-off',
+        title: '불량식품 알리기',
+        screen: 'report'
     }, {
         id: 4,
         icon: 'file-document-outline',

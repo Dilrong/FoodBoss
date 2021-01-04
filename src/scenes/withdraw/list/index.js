@@ -30,7 +30,7 @@ const ListScreen = ({navigation}) => {
 
     const getData = async() => {
         setLoading(true)
-        await axios.get(`http://openapi.foodsafetykorea.go.kr/api/${FoodServiceKey}/I0490/json/${page}/${page*15}`)
+        await axios.get(`http://openapi.foodsafetykorea.go.kr/api/${FoodServiceKey}/I0490/json/${page}/${page*30}`)
         .then((response) => {
             setRows(response.data.I0490.row);
         })
@@ -41,14 +41,13 @@ const ListScreen = ({navigation}) => {
     }
 
     const addData = async() => {
-        await axios.get(`http://openapi.foodsafetykorea.go.kr/api/${FoodServiceKey}/I0490/json/${page}/${page*15}`)
+        await axios.get(`http://openapi.foodsafetykorea.go.kr/api/${FoodServiceKey}/I0490/json/${page*30}/${(page+1)*30}`)
         .then((response) => {
             setRows(rows.concat(response.data.I0490.row))
         })
         .catch((err) => {
             console.log(err)
         })
-        setLoading(false);
     }
 
     useEffect(() => {
