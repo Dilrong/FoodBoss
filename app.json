@@ -1,12 +1,26 @@
 {
-  "name": "FoodBoss",
-  "displayName": "FoodBoss",
+  "name": "식품대장",
+  "displayName": "식품대장",
   "expo": {
-    "name": "FoodBoss",
+    "name": "식품대장",
     "slug": "FoodBoss",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "orientation": "portrait",
+    "icon": "./src/assets/icon.png",
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#fff"
+    },
+    "android": {
+      "package": "com.dilrong.foodboss",
+      "versionCode": 1,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-5210543205621832~8720597939"
+      }
+    }
   }
 }
