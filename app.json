@@ -4,7 +4,7 @@
   "expo": {
     "name": "식품대장",
     "slug": "FoodBoss",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -17,7 +17,7 @@
     },
     "android": {
       "package": "com.dilrong.foodboss",
-      "versionCode": 1,
+      "versionCode": 3,
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-5210543205621832~8720597939"
       }
